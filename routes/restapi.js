@@ -13,14 +13,16 @@ var registrationLogin = require('../routes/registrationLogin')
 var jwtVerify = require('../routes/jwtVerify')
 
 var BuildingRoutes = express.Router()
-//for authentication
-// BuildingRoutes.use(function(req, res, next) {
-//   jwtVerify(req, res, next)
-// })
+    //for authentication
+    // BuildingRoutes.use(function(req, res, next) {
+    //   jwtVerify(req, res, next)
+    // })
+
+
 
 //Adding a new Building
-BuildingRoutes.post('/addbuilding', function(req,res){
-    var building= new Building({
+BuildingRoutes.post('/addbuilding', function(req, res) {
+    var building = new Building({
         name: req.body.name,
         address: req.body.address
     })
@@ -41,14 +43,15 @@ BuildingRoutes.post('/addbuilding', function(req,res){
 })
 
 
+
 //Adding a new restaurant
-BuildingRoutes.post('/addrest', function(req, res){
-    var newrest ={
+BuildingRoutes.post('/addrest', function(req, res) {
+    var newrest = {
         rest_name: req.body.name,
         rest_phone: req.body.phone
     }
 
-    Building.findOneAndUpdate({name: req.body.build},{$push: {restaurants: newrest}}, {upsert: true}, function(err, data) {
+    Building.findOneAndUpdate({ name: req.body.build }, { $push: { restaurants: newrest } }, { upsert: true }, function(err, data) {
         if (err) {
             res.send({
                 status: false,
@@ -66,14 +69,15 @@ BuildingRoutes.post('/addrest', function(req, res){
 })
 
 
+
 //Adding new dish
-BuildingRoutes.post('/adddish', function(req, res){
-    var newdish ={
+BuildingRoutes.post('/adddish', function(req, res) {
+    var newdish = {
         dish_name: req.body.named,
         price: req.body.price
     }
 
-    Building.findOneAndUpdate({"restaurants.rest_name": req.body.name},{$push: {'restaurants.$.dishes': newdish}}, {upsert: true}, function(err, data) {
+    Building.findOneAndUpdate({ "restaurants.rest_name": req.body.name }, { $push: { 'restaurants.$.dishes': newdish } }, { upsert: true }, function(err, data) {
         if (err) {
             res.send({
                 status: false,

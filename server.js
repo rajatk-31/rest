@@ -14,9 +14,7 @@ var jwtVerify = require('./routes/jwtVerify')
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
-
-//  require('./routes/routes-config')(app);
+app.use(bodyParser.json());
 
 // app.use(express.static('./public'));
 // app.use(function(req, res) {
