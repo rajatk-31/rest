@@ -73,7 +73,7 @@ BuildingRoutes.post('/adddish', function(req, res){
         price: req.body.price
     }
 
-    Building.aggregate({$match:{"office.office_name": req.body.name}}, function(err, data) {
+    Building.aggregate([{$match:{"office.office_name": req.body.name}}, function(err, data) {
         if (err) {
             res.send({
                 status: false,
@@ -87,6 +87,6 @@ BuildingRoutes.post('/adddish', function(req, res){
             });
         }
 
-    });
+    }]);
 })
 module.exports = BuildingRoutes;
