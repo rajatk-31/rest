@@ -73,7 +73,7 @@ BuildingRoutes.post('/adddish', function(req, res){
         price: req.body.price
     }
 
-    Building.aggregate([{$match:{"office.office_name": req.body.name}}, function(err, data) {
+    Building.findOneAndUpdate({"restaurants.rest_name": req.body.name},{$push: {'restaurants.$.dishes': newdish}}, {upsert: true}, function(err, data) {
         if (err) {
             res.send({
                 status: false,
@@ -87,6 +87,6 @@ BuildingRoutes.post('/adddish', function(req, res){
             });
         }
 
-    }]);
+    });
 })
 module.exports = BuildingRoutes;
